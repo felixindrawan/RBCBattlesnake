@@ -19,7 +19,7 @@ function handleIndex(request, response) {
     apiversion: '1',
     author: '',
     color: '#888888',
-    head: 'default',
+    head: 'rudolph',
     tail: 'default'
   }
   response.status(200).json(battlesnakeInfo)

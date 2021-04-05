@@ -78,7 +78,7 @@ var battlesnakeInfo = {
   author: '',
   color: '#888888',
   head: 'rudolph',
-  tail: 'default'
+  tail: 'bolt'
 }
 ```
 

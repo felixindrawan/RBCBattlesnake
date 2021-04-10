@@ -40,7 +40,12 @@ function handleMove(request, response) {
   boardData.setGameData(gameData)
   var snakes = boardData.getSnakes()
 
-  console.log(snakes);
+  snakes.forEach(function (snake, index) {
+    var snake1 = require('./data/snake')
+    snake1.setSnake(snake)
+    var snakeIds = snake1.getSnakeId()
+    console.log(snakeIds)
+  })
 
   var possibleMoves = ['up', 'down', 'left', 'right']
   var move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]

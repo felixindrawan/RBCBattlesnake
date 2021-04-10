@@ -6,71 +6,73 @@ var food
 var turn
 var snakes
 
-function setGameData(gameData) {
+module.exports = {
+setGameData: function (gameData) {
   this.gameId = gameData.game.id
   this.width = gameData.board.width
   this.height = gameData.board.height
   this.food = gameData.board.food
   this.turn = gameData.board.turn
   this.snakes = gameData.board.snakes
-}
+},
 
-function setGameId(gameId) {
+setGameId: function (gameId) {
   this.gameId = gameId
-}
+},
 
-function getGameId() {
+getGameId: function () {
   return this.gameId
-}
+},
 
-function setWidth(width) {
+setWidth: function (width) {
   this.width = width
-}
+},
 
-function getWidth() {
+getWidth: function () {
   return this.width
-}
+},
 
-function setHeight(height) {
+setHeight: function (height) {
   this.height = height
-}
+},
 
-function getHeight() {
+getHeight: function () {
   return this.height
-}
+},
 
-function setFood(food) {
+setFood: function (food) {
   this.food = food
-}
+},
 
-function getFood() {
+getFood: function () {
   return this.food
-}
+},
 
-function setTurn(turn) {
+setTurn: function (turn) {
   this.turn = turn
-}
+},
 
-function getTurn() {
+getTurn: function () {
   return this.turn
-}
+},
 
-function setSnakes(snakes) {
+setSnakes: function (snakes) {
   this.snakes = snakes
-}
+},
 
-function getSnakes() {
+getSnakes: function () {
   return this.snakes
-}
+},
 
-function isOutofBounds(gamedata){
+isOutofBounds: function (gamedata){
   return isCorner(gameData) || isEdge(gameData)
-}
-function isCorner(gameData){
+},
+isCorner: function (gameData){
   potential_corner=[0,10]
   return (gameData.you.head.x in potential_corner &&gameData.you.head.y in potential_corner)
-}
-function isEdge(gameData){
+},
+isEdge: function (gameData){
   on_edge=[0,10]
   return (gameData.you.head.x in potential_corner ||gameData.you.head.y in potential_corner)
+},
 }

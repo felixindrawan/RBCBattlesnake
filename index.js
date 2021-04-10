@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const express = require('express')
+const boardData = require('./data/board')
 
 const PORT = process.env.PORT || 3000
 
@@ -34,6 +35,11 @@ function handleStart(request, response) {
 
 function handleMove(request, response) {
   var gameData = request.body
+  boardData.setGameData(gameData)
+  var snakes = boardData.getSnakes()
+
+  console.log(snakes);
+  ``
 
   var possibleMoves = ['up', 'down', 'left', 'right']
   var move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]

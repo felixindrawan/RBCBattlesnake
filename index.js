@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const boardData = require('./data/board')
+const snakeData = require('./data/snake')
 
 const PORT = process.env.PORT || 3000
 
@@ -18,10 +19,11 @@ app.listen(PORT, () => console.log(`Battlesnake Server listening at http://127.0
 function handleIndex(request, response) {
   var battlesnakeInfo = {
     apiversion: '1',
-    author: '',
+    author: 'Felix Indrawan, Nancy Zhang, Michael Buchar',
     color: '#77625C',
     head: 'rudolph',
-    tail: 'bolt'
+    tail: 'bolt',
+    shout: 'owa owa'
   }
   response.status(200).json(battlesnakeInfo)
 }
@@ -39,7 +41,6 @@ function handleMove(request, response) {
   var snakes = boardData.getSnakes()
 
   console.log(snakes);
-  ``
 
   var possibleMoves = ['up', 'down', 'left', 'right']
   var move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]

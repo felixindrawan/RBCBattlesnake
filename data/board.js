@@ -62,3 +62,15 @@ function setSnakes(snakes) {
 function getSnakes() {
   return this.snakes
 }
+
+function isOutofBounds(gamedata){
+  return isCorner(gameData) || isEdge(gameData)
+}
+function isCorner(gameData){
+  potential_corner=[0,10]
+  return (gameData.you.head.x in potential_corner &&gameData.you.head.y in potential_corner)
+}
+function isEdge(gameData){
+  on_edge=[0,10]
+  return (gameData.you.head.x in potential_corner ||gameData.you.head.y in potential_corner)
+}

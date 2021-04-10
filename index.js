@@ -23,7 +23,7 @@ function handleIndex(request, response) {
     color: '#77625C',
     head: 'rudolph',
     tail: 'bolt',
-    shout: 'owa owa'
+    shout: 'OWA OWA'
   }
   response.status(200).json(battlesnakeInfo)
 }

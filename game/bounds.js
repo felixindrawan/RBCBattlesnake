@@ -1,17 +1,18 @@
 module.exports = {
-  inBoundsMove: function(move) {
-    correspondingloc = correspondingMove(move)
-    var myLength = require('./data/snake')
+  inBoundsMove: function(move, mySnake) {
+    correspondingloc = module.exports.correspondingMove(move, mySnake)
+    var myLength = require('../data/snake')
+    myLength.setSnake(mySnake)
     myLength.getSnakeLength()
-    result = isOut(correspondingloc)
-    potential = isPotentialCorner(correspondingloc)
+    result = module.exports.isOut(correspondingloc)
+    potential = module.exports.isPotentialCorner(correspondingloc)
     if (result) {
-      return False
+      return false
     }
     if (myLength > 3 && potential) {
-      return False
+      return false
     }
-    return True
+    return true
   },
   // isCorner: function (coordinate){
   //   potential_corner=[-1,11]
@@ -25,8 +26,9 @@ module.exports = {
     potential_corner = [0, 10]
     return (coordinate in potential_corner && coordinate in potential_corner)
   },
-  correspondingMove: function(move) {
-    var newHead = require('./data/snake')
+  correspondingMove: function(move, mySnake) {
+    var newHead = require('../data/snake')
+    newHead.setSnake(mySnake)
     newHead.getSnakeHead()
     if (move.localeCompare('up') == 0) {
       return newHead.y += 1

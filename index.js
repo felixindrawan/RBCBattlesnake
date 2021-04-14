@@ -3,6 +3,7 @@ const express = require('express')
 const boardData = require('./data/board')
 const snakeData = require('./data/snake')
 const distanceData = require ('./game/distance')
+const boundsData = require('./game/bounds')
 
 const PORT = process.env.PORT || 3000
 
@@ -48,15 +49,20 @@ function handleMove(request, response) {
     var snake1 = require('./data/snake')
     snake1.setSnake(snake)
     var snakeIds = snake1.getSnakeId()
-    console.log(snakeIds)
   })
 
-  move = handleEat(boardData, mySnake);
+  // move = handleEat(boardData, mySnake);
 
-  console.log (distanceData.getDistanceFromSmallerSnakes(
-    mySnake, boardData.getSnakes()
-  ))
+  // console.log (distanceData.getDistanceFromSmallerSnakes(
+  //   mySnake, boardData.getSnakes()
+  // ))
 
+  move = boundsData.inBoundsMove("down", mySnake) ? "down" :
+          (boundsData.inBoundsMove("right", mySnake) ? "right" :
+          (boundsData.inBoundsMove("left", mySnake) ? "left" :
+          "up"));
+
+  console.log(boundsData.inBoundsMove(move, mySnake))
 
   console.log('MOVE: ' + move)
   response.status(200).send({
@@ -74,6 +80,8 @@ function handleEat(boardData, mySnake) {
     console.log("dir "+ directions)
     for (var dir of directions){
         // if (avoidSelf(dir))
+        console.log(boundsData.inBoundsMove(dir, mySnake))
+        if (boundsData.inBoundsMove(dir, mySnake))
           return dir;
     }
   }

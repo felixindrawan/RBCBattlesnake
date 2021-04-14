@@ -69,7 +69,7 @@ function handleEat(boardData, head) {
   var foodsDistance = distanceData.getDistanceFromFoods(head, boardData.getFood())
 
   for (var food of foodsDistance) {
-    console.log ("food " + food)
+    console.log (food)
     var directions = getDirections(head, food)
 
     console.log("dir "+ directions)
@@ -83,8 +83,10 @@ function handleEat(boardData, head) {
 
 function getDirections(head, dest) {
   var directions = []
-  var diffX = dest.x - head.x;
-  var diffY = dest.y - head.y;
+  var diffX = dest.x - head.x
+  var diffY = dest.y - head.y
+
+  console.log(diffX + " d " + diffY)
 
   if (Math.abs(diffX) > Math.abs(diffY)) {
     directions.push((diffX >= 1) ? POSSIBLEMOVES[3] : POSSIBLEMOVES[2])

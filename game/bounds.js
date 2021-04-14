@@ -20,25 +20,29 @@ module.exports = {
   // },
   isOut: function(coordinate) {
     out = [-1, 11]
-    return (coordinate in out || coordinate in out)
+    return (coordinate.x in out || coordinate.y in out)
   },
   isPotentialCorner: function(coordinate) {
     potential_corner = [0, 10]
-    return (coordinate in potential_corner && coordinate in potential_corner)
+    return (coordinate.x in potential_corner && coordinate.y in potential_corner)
   },
   correspondingMove: function(move, mySnake) {
     var newHead = require('../data/snake')
     newHead.setSnake(mySnake)
     newHead.getSnakeHead()
     if (move.localeCompare('up') == 0) {
-      return newHead.y += 1
+      newHead.y = newHead.y + 1
+      return newHead
     }
     else if (move.localeCompare('down') == 0) {
-      return newHead.y -= 1
+      newHead.y = newHead.y - 1
+      return newHead
     } else if (move.localeCompare('left') == 0) {
-      return newHead.x -= 1
+      newHead.x = newHead.x - 1
+      return newHead
     } else {
-      return newHead.x += 1
+      newHead.x = newHead.x + 1
+      return newHead
     }
   },
 }

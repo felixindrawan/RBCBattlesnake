@@ -3,10 +3,12 @@ module.exports = {
     correspondingloc=correspondingMove(move)
     var myLength = require('./data/snake')
     myLength.getSnakeLength()
-    if (isOut(correspondingloc)){
+    result = isOut(correspondingloc)
+    potential = isPotentialCorner(correspondingloc)
+    if (result){
       return False
     }
-    if myLength > 3 && isPotentialCorner(correspondingloc)){
+    if myLength > 3 && potential ){
       return False
     } 
     return True

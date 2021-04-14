@@ -1,6 +1,10 @@
 module.exports = {
   inBoundsMove: function(move, mySnake) {
+    console.log("mySmale ")
+    console.log(mySnake.head)
     correspondingloc = module.exports.correspondingMove(move, mySnake)
+        console.log("corr ")
+console.log(correspondingloc)
     var myLength = require('../data/snake')
     myLength.setSnake(mySnake)
     myLength.getSnakeLength()
@@ -27,9 +31,7 @@ module.exports = {
     return (coordinate.x in potential_corner && coordinate.y in potential_corner)
   },
   correspondingMove: function(move, mySnake) {
-    var newHead = require('../data/snake')
-    newHead.setSnake(mySnake)
-    newHead.getSnakeHead()
+    var newHead = mySnake.head
     if (move.localeCompare('up') == 0) {
       newHead.y = newHead.y + 1
       return newHead

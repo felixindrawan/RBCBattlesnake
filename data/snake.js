@@ -19,21 +19,25 @@ module.exports = {
 
   getSnakeId: function () {
     return this.snakeId
-  }
+  },
 
   getSnakeLength: function (id) {
     return this.length
-  }
+  },
+  
   getSnakeHealth: function(){
     return this.health
-  }
+  },
+
   getSnakeLength: function(){
     return this.length
-  }
+  },
+
   getSnakeBody: function(){
     return this.body
-  }
+  },
+
   getSnakeHead: function(){
     return this.head
-  }
+  },
 }

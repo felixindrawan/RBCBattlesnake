@@ -104,6 +104,31 @@ function getDirections(mySnake, dest) {
   return directions
 }
 
+function avoidSelf (move) {
+  snakeData.setSnake(gameData)
+  var snakeBody = snakeData.getSnakeBody()
+  for (var bodyPart of snakeBody) {
+    switch (move) {
+      case 'up':
+        if ((snakeData.getSnakeHead().x == bodyPart.x) && (snakeData.getSnakeHead().y == bodyPart.y+1)) {return false;}
+      break;
+    case 'down':
+      if ((snakeData.getSnakeHead().x == bodyPart.x) && (snakeData.getSnakeHead().y == bodyPart.y-1)) {return false;}
+      break;
+    case 'left':
+      if ((snakeData.getSnakeHead().x == bodyPart.x-1) && (snakeData.getSnakeHead().y == bodyPart.y)) {return false;}
+      break;
+    case 'right':
+      if ((snakeData.getSnakeHead().x == bodyPart.x+1) && (snakeData.getSnakeHead().y == bodyPart.y)) {return false;}
+      break;
+    default:
+      return false // not a valid move
+    }
+  }
+  return true
+}
+
+
 function handleEnd(request, response) {
   var gameData = request.body
 

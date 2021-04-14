@@ -18,7 +18,7 @@ module.exports = {
     return sortedFoods
   },
 
-  getDistanceFromEdibleSnakes: function(mySnake, unsortedSnakes) {
+  getDistanceFromSmallerSnakes: function(mySnake, unsortedSnakes) {
     var smallerSnakes = []
     for (var snake of unsortedSnakes) {
       if (mySnake.body.length > snake.body.length) {
@@ -28,7 +28,7 @@ module.exports = {
       }
     }
 
-    if (edibleSnakes)
+    if (smallerSnakes)
     for (var snake of smallerSnakes) {
       snake.distance = module.exports.getDistanceBetweenTwoPoints(mySnake.head, food)
     }
@@ -37,6 +37,6 @@ module.exports = {
       return a.distance - b.distance
     })
 
-    return edibleSnakes
+    return smallerSnakes
   },
 }

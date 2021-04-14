@@ -53,7 +53,7 @@ function handleMove(request, response) {
 
   move = handleEat(boardData, mySnake);
 
-  console.log (distanceData.getDistanceFromEdibleSnakes(
+  console.log (distanceData.getDistanceFromSmallerSnakes(
     mySnake, boardData.getSnakes()
   ))
 
@@ -73,9 +73,8 @@ function handleEat(boardData, mySnake) {
 
     console.log("dir "+ directions)
     for (var dir of directions){
-      console.log("Avoid " + avoidSelf(dir))
-      if (avoidSelf(boardData, dir))
-        return dir;
+        // if (avoidSelf(dir))
+          return dir;
     }
   }
 

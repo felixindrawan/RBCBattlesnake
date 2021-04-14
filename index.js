@@ -21,7 +21,7 @@ const POSSIBLEMOVES = ['up', 'down', 'left', 'right']
 function handleIndex(request, response) {
   var battlesnakeInfo = {
     apiversion: '1',
-    author: 'Felix Indrawan, Nancy Zhang, Michael Buchar',
+    author: 'Felix Indrawan, Nancy Zhang, Michael Buchar, Ishita Shah',
     color: '#77625C',
     head: 'rudolph',
     tail: 'bolt',
@@ -79,7 +79,7 @@ function handleEat(boardData, mySnake) {
     }
   }
 
-  return up;
+  return "up";
 }
 
 function getDirections(mySnake, dest) {
@@ -107,6 +107,7 @@ function getDirections(mySnake, dest) {
 function avoidSelf (gameData, move) {
   snakeData.setSnake(gameData)
   var snakeBody = snakeData.getSnakeBody()
+  console.log(snakeData.getSnakeBody())
   for (var bodyPart of snakeBody) {
     switch (move) {
       case 'up':

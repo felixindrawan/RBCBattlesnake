@@ -6,32 +6,34 @@ module.exports = {
   getDistanceFromFoods: function(head, unsortedFoods) {
     var sortedFoods = unsortedFoods
 
-    for (var food of sortedFoods) {
-      food.distance = module.exports.getDistanceBetweenTwoPoints(head, food)
+    if (sortedFoods) {
+      for (var food of sortedFoods) {
+        food.distance = module.exports.getDistanceBetweenTwoPoints(head, food)
+      }
+
+      sortedFoods.sort(function(a, b) {
+        return a.distance - b.distance
+      })
     }
-
-    sortedFoods.sort(function(a, b) {
-      return a.distance - b.distance
-    })
-
     return sortedFoods
   },
 
   getDistanceFromEdibleSnakes: function(mySnake, unsortedSnakes) {
-    var edibleSnakes = []
+    var smallerSnakes = []
     for (var snake of unsortedSnakes) {
       if (mySnake.body.length > snake.body.length) {
         if (mySnake.id != snake.id) {
-          edibleSnakes.push(snake)
+          smallerSnakes.push(snake)
         }
       }
     }
 
-    for (var snake of edibleSnakes) {
+    if (edibleSnakes)
+    for (var snake of smallerSnakes) {
       snake.distance = module.exports.getDistanceBetweenTwoPoints(mySnake.head, food)
     }
 
-    edibleSnakes.sort(function(a, b) {
+    smallerSnakes.sort(function(a, b) {
       return a.distance - b.distance
     })
 

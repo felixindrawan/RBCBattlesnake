@@ -18,8 +18,6 @@ app.listen(PORT, () => console.log(`Battlesnake Server listening at http://127.0
 
 const POSSIBLEMOVES = ['up', 'down', 'left', 'right']
 
-const OURMOVES
-
 function handleIndex(request, response) {
   var battlesnakeInfo = {
     apiversion: '1',
@@ -75,7 +73,9 @@ function handleEat(boardData, mySnake) {
 
     console.log("dir "+ directions)
     for (var dir of directions){
-      return dir;
+      console.log("Avoid " + avoidSelf(dir))
+      if (avoidSelf(boardData, dir))
+        return dir;
     }
   }
 
@@ -104,7 +104,7 @@ function getDirections(mySnake, dest) {
   return directions
 }
 
-function avoidSelf (move) {
+function avoidSelf (gameData, move) {
   snakeData.setSnake(gameData)
   var snakeBody = snakeData.getSnakeBody()
   for (var bodyPart of snakeBody) {

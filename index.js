@@ -2,6 +2,7 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const boardData = require('./data/board')
 const snakeData = require('./data/snake')
+const distanceData = require ('./game/distance')
 
 const PORT = process.env.PORT || 3000
 
@@ -35,8 +36,12 @@ function handleStart(request, response) {
   response.status(200).send('ok')
 }
 
+const POSSIBLEMOVES = ['up', 'down', 'left', 'right']
+
 function handleMove(request, response) {
+  var move = null;
   var gameData = request.body
+  var mySnake = gameData.you;
   boardData.setGameData(gameData)
   var snakes = boardData.getSnakes()
 
@@ -47,13 +52,55 @@ function handleMove(request, response) {
     console.log(snakeIds)
   })
 
-  var possibleMoves = ['up', 'down', 'left', 'right']
-  var move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
+  move = handleEat(boardData, mySnake.head);
+
+  console.log (distanceData.getDistanceFromEdibleSnakes(
+    mySnake, boardData.getSnakes()
+  ))
+
 
   console.log('MOVE: ' + move)
   response.status(200).send({
     move: move
   })
+}
+
+function handleEat(boardData, head) {
+  var foodsDistance = distanceData.getDistanceFromFoods(head, boardData.getFood())
+
+  for (var food of foodsDistance) {
+    console.log (food)
+    var directions = getDirections(head, food)
+
+    console.log("dir "+ directions)
+    for (var dir of directions){
+      return dir;
+    }
+  }
+
+  return up;
+}
+
+function getDirections(head, dest) {
+  var directions = []
+  var diffX = dest.x - head.x
+  var diffY = dest.y - head.y
+
+  console.log(diffX + " d " + diffY)
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    directions.push((diffX >= 1) ? POSSIBLEMOVES[3] : POSSIBLEMOVES[2])
+
+    if (diffY != 0)
+     directions.push((diffY >= 1) ? POSSIBLEMOVES[1] : POSSIBLEMOVES[0])
+  } else {
+    directions.push((diffY >= 1) ? POSSIBLEMOVES[1] : POSSIBLEMOVES[0])
+
+    if (diffX != 0)
+     directions.push((diffX >= 1) ? POSSIBLEMOVES[3] : POSSIBLEMOVES[2])
+  }
+
+  return directions
 }
 
 function handleEnd(request, response) {

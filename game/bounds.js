@@ -19,8 +19,8 @@ module.exports = {
   //   return (coordinate in potential_corner && coordinate in potential_corner)
   // },
   isOut: function (coordinate){
-    on_edge=[-1,11]
-    return (coordinate in potential_corner ||coordinate in potential_corner)
+    out=[-1,11]
+    return (coordinate in out ||coordinate in out)
   },
   isPotentialCorner: function (coordinate){
     potential_corner=[0,10]

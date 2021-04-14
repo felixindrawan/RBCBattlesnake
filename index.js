@@ -16,6 +16,9 @@ app.post('/end', handleEnd)
 
 app.listen(PORT, () => console.log(`Battlesnake Server listening at http://127.0.0.1:${PORT}`))
 
+const POSSIBLEMOVES = ['up', 'down', 'left', 'right']
+
+const OURMOVES
 
 function handleIndex(request, response) {
   var battlesnakeInfo = {
@@ -36,8 +39,6 @@ function handleStart(request, response) {
   response.status(200).send('ok')
 }
 
-const POSSIBLEMOVES = ['up', 'down', 'left', 'right']
-
 function handleMove(request, response) {
   var move = null;
   var gameData = request.body
@@ -52,7 +53,7 @@ function handleMove(request, response) {
     console.log(snakeIds)
   })
 
-  move = handleEat(boardData, mySnake.head);
+  move = handleEat(boardData, mySnake);
 
   console.log (distanceData.getDistanceFromEdibleSnakes(
     mySnake, boardData.getSnakes()
@@ -65,12 +66,12 @@ function handleMove(request, response) {
   })
 }
 
-function handleEat(boardData, head) {
-  var foodsDistance = distanceData.getDistanceFromFoods(head, boardData.getFood())
+function handleEat(boardData, mySnake) {
+  var foodsDistance = distanceData.getDistanceFromFoods(mySnake.head, boardData.getFood())
 
   for (var food of foodsDistance) {
     console.log (food)
-    var directions = getDirections(head, food)
+    var directions = getDirections(mySnake, food)
 
     console.log("dir "+ directions)
     for (var dir of directions){
@@ -81,10 +82,10 @@ function handleEat(boardData, head) {
   return up;
 }
 
-function getDirections(head, dest) {
+function getDirections(mySnake, dest) {
   var directions = []
-  var diffX = dest.x - head.x
-  var diffY = dest.y - head.y
+  var diffX = dest.x - mySnake.head.x
+  var diffY = dest.y - mySnake.head.y
 
   console.log(diffX + " d " + diffY)
 
@@ -92,9 +93,9 @@ function getDirections(head, dest) {
     directions.push((diffX >= 1) ? POSSIBLEMOVES[3] : POSSIBLEMOVES[2])
 
     if (diffY != 0)
-     directions.push((diffY >= 1) ? POSSIBLEMOVES[1] : POSSIBLEMOVES[0])
+     directions.push((diffY >= 1) ? POSSIBLEMOVES[0] : POSSIBLEMOVES[1])
   } else {
-    directions.push((diffY >= 1) ? POSSIBLEMOVES[1] : POSSIBLEMOVES[0])
+    directions.push((diffY >= 1) ? POSSIBLEMOVES[0] : POSSIBLEMOVES[1])
 
     if (diffX != 0)
      directions.push((diffX >= 1) ? POSSIBLEMOVES[3] : POSSIBLEMOVES[2])

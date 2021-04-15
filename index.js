@@ -72,10 +72,10 @@ function handleEat(boardData, mySnake) {
 
     console.log("dir "+ directions)
     for (var dir of directions){
-        // if (avoidSelf(dir))
-        console.log(boundsData.inBoundsMove(dir, mySnake))
-        if (boundsData.inBoundsMove(dir, mySnake))
-          return dir;
+      if (avoidSelf(dir))
+      // console.log(boundsData.inBoundsMove(dir, mySnake))
+      // if (boundsData.inBoundsMove(dir, mySnake))
+        return dir;
     }
   }
 
@@ -104,26 +104,37 @@ function getDirections(mySnake, dest) {
   return directions
 }
 
-function avoidSelf (gameData, move) {
-  snakeData.setSnake(gameData)
-  var snakeBody = snakeData.getSnakeBody()
-  console.log(snakeData.getSnakeBody())
+function avoidSelf (move) {
+  var mySnake = require('./data/snake')
+  var snakeBody = mySnake.getSnakeBody()
+  snakeBody.slice(0,mySnake.getSnakeLength-1)
+  console.log(mySnake.getSnakeBody())
+  console.log(move)
+  console.log(mySnake.getSnakeHead())
   for (var bodyPart of snakeBody) {
     switch (move) {
       case 'up':
-        if ((snakeData.getSnakeHead().x == bodyPart.x) && (snakeData.getSnakeHead().y == bodyPart.y+1)) {return false;}
-      break;
-    case 'down':
-      if ((snakeData.getSnakeHead().x == bodyPart.x) && (snakeData.getSnakeHead().y == bodyPart.y-1)) {return false;}
-      break;
-    case 'left':
-      if ((snakeData.getSnakeHead().x == bodyPart.x-1) && (snakeData.getSnakeHead().y == bodyPart.y)) {return false;}
-      break;
-    case 'right':
-      if ((snakeData.getSnakeHead().x == bodyPart.x+1) && (snakeData.getSnakeHead().y == bodyPart.y)) {return false;}
-      break;
-    default:
-      return false // not a valid move
+        if ((mySnake.getSnakeHead().x == bodyPart.x) && (mySnake.getSnakeHead().y == bodyPart.y-1))
+          {console.log("cannot go up") 
+          return false}
+        break
+      case 'down':
+        if ((mySnake.getSnakeHead().x == bodyPart.x) && (mySnake.getSnakeHead().y == bodyPart.y+1))
+          {console.log("cannot go down") 
+          return false}
+        break;
+      case 'left':
+        if ((mySnake.getSnakeHead().x == bodyPart.x+1) && (mySnake.getSnakeHead().y == bodyPart.y))
+          {console.log("cannot go left") 
+          return false}
+        break;
+      case 'right':
+        if ((mySnake.getSnakeHead().x == bodyPart.x-1) && (mySnake.getSnakeHead().y == bodyPart.y)) 
+          {console.log("cannot go right") 
+          return false}
+        break;
+      default:
+        return false // not a valid move
     }
   }
   return true

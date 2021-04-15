@@ -51,18 +51,11 @@ function handleMove(request, response) {
     var snakeIds = snake1.getSnakeId()
   })
 
-  // move = handleEat(boardData, mySnake);
+  move = handleEat(boardData, mySnake);
 
-  // console.log (distanceData.getDistanceFromSmallerSnakes(
-  //   mySnake, boardData.getSnakes()
-  // ))
-
-  move = boundsData.inBoundsMove("down", mySnake) ? "down" :
-          (boundsData.inBoundsMove("right", mySnake) ? "right" :
-          (boundsData.inBoundsMove("left", mySnake) ? "left" :
-          "up"));
-
-  console.log(boundsData.inBoundsMove(move, mySnake))
+  console.log (distanceData.getDistanceFromSmallerSnakes(
+    mySnake, boardData.getSnakes()
+  ))
 
   console.log('MOVE: ' + move)
   response.status(200).send({

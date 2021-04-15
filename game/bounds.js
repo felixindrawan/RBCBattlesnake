@@ -1,10 +1,7 @@
 module.exports = {
   inBoundsMove: function(move, mySnake) {
-    console.log("mySmale ")
     console.log(mySnake.head)
     correspondingloc = module.exports.correspondingMove(move, mySnake)
-        console.log("corr ")
-console.log(correspondingloc)
     var myLength = require('../data/snake')
     myLength.setSnake(mySnake)
     myLength.getSnakeLength()
@@ -24,25 +21,27 @@ console.log(correspondingloc)
   // },
   isOut: function(coordinate) {
     out = [-1, 11]
-    return (coordinate.x in out || coordinate.y in out)
+
+    return (out.includes(coordinate.x) || out.includes(coordinate.y))
   },
   isPotentialCorner: function(coordinate) {
     potential_corner = [0, 10]
-    return (coordinate.x in potential_corner && coordinate.y in potential_corner)
+    return (potential_corner.includes(coordinate.x) && potential_corner.includes(coordinate.y))
   },
   correspondingMove: function(move, mySnake) {
     var newHead = mySnake.head
+    console.log("newH ")
+    console.log( newHead)
     if (move.localeCompare('up') == 0) {
       newHead.y = newHead.y + 1
       return newHead
-    }
-    else if (move.localeCompare('down') == 0) {
+    } else if (move.localeCompare('down') == 0) {
       newHead.y = newHead.y - 1
       return newHead
     } else if (move.localeCompare('left') == 0) {
       newHead.x = newHead.x - 1
       return newHead
-    } else {
+    } else if (move.localeCompare('right') == 0){
       newHead.x = newHead.x + 1
       return newHead
     }

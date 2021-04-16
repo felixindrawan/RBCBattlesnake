@@ -10,9 +10,9 @@ module.exports = {
     if (result) {
       return false
     }
-    if (myLength > 3 && potential) {
-      return false
-    }
+    // if (myLength > 3 && potential) {
+    //  return false
+    //}
     return true
   },
   // isCorner: function (coordinate){

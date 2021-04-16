@@ -51,7 +51,31 @@ function handleMove(request, response) {
     var snakeIds = snake1.getSnakeId()
   })
 
-  move = handleEat(boardData, mySnake);
+  if (mySnake.health < 30) {
+    console.log("status: lowhp")
+    move = handleEat(boardData, mySnake)
+  }
+
+  if (!move) {
+    console.log("status: kill")
+    var snakesDistance = distanceData.getDistanceFromSmallerSnakes(mySnake, boardData.getSnakes())
+    if (snakesDistance.length > 1)
+      move = handleFight(boardData, mySnake, snakesDistance)
+  }
+
+  if (!move) {
+    console.log("status: eat")
+    move = handleEat(boardData,mySnake)
+  }
+
+  if (!move) {
+    console.log("status: roam")
+    for (var dir in POSSIBLEMOVES){
+      if (avoidSelf(dir) && boundsData.inBoundsMove(dir, mySnake)){
+        move = dir;
+      }
+    }
+  }
 
   console.log (distanceData.getDistanceFromSmallerSnakes(
     mySnake, boardData.getSnakes()
@@ -67,19 +91,39 @@ function handleEat(boardData, mySnake) {
   var foodsDistance = distanceData.getDistanceFromFoods(mySnake.head, boardData.getFood())
 
   for (var food of foodsDistance) {
-    console.log (food)
     var directions = getDirections(mySnake, food)
 
-    console.log("dir "+ directions)
     for (var dir of directions){
       if (avoidSelf(dir))
-      // console.log(boundsData.inBoundsMove(dir, mySnake))
-      // if (boundsData.inBoundsMove(dir, mySnake))
-        return dir;
+        if (boundsData.inBoundsMove(dir, mySnake))
+          return dir;
     }
   }
 
-  return "up";
+  return null;
+}
+
+function handleFight(boardData, mySnake, snakesDistance) {
+
+  for (var snake of snakesDistance) {
+    var snakeDir = getSnakeDir(snake);
+    var directions = getDirections(mySnake, snakeDir)
+
+    for (var dir of directions){
+      if (avoidSelf(dir))
+        if (boundsData.inBoundsMove(dir, mySnake))
+          return dir;
+    }
+  }
+
+  return null;
+}
+
+function getSnakeDir(snake) {
+  var diffX = snake.body[0].x - snake.body[1].x
+  var diffY = snake.body[0].y - snake.body[1].y
+
+  return {x: snake.head.x + diffX, y: snake.head.yx + diffY}
 }
 
 function getDirections(mySnake, dest) {
@@ -98,7 +142,7 @@ function getDirections(mySnake, dest) {
     directions.push((diffY >= 1) ? POSSIBLEMOVES[0] : POSSIBLEMOVES[1])
 
     if (diffX != 0)
-     directions.push((diffX >= 1) ? POSSIBLEMOVES[3] : POSSIBLEMOVES[2])
+     directions.push((diffX >= 1) ? POSSIBLEMOVES[3] : POSSIBLEMOVES[2])     
   }
 
   return directions

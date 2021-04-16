@@ -30,7 +30,7 @@ module.exports = {
 
     if (smallerSnakes)
     for (var snake of smallerSnakes) {
-      snake.distance = module.exports.getDistanceBetweenTwoPoints(mySnake.head, food)
+      snake.distance = module.exports.getDistanceBetweenTwoPoints(mySnake.head, snake.body[0])
     }
 
     smallerSnakes.sort(function(a, b) {
